@@ -9,9 +9,6 @@ class Challenge
     @file_path = File.expand_path(file_path)
     @early_year = ''
     @late_year = ''
-    @earliest_time = ''
-    @latest_time= ''
-    @peak_year = ''
 
     parse()
   end
@@ -23,6 +20,7 @@ class Challenge
     # latest_time: the latest time contained within the data set
     # peak_year: the year with the most number of timestamps contained within the data set
 
+    # Initialize local variables
     year_arr = Hash.new(0)
 
     # Opening and running through each line of the file of dates
@@ -32,9 +30,9 @@ class Challenge
       timestamp = Time.parse(date).to_i
       year = Time.parse(date).strftime("%Y");
 
-      # Run the earliest and latest mehtods, to track the earliest and latest years
-      earliest(timestamp)
-      latest(timestamp)
+      # Run the earliest_date and latest_date mehtods, to track the earliest and latest dates
+      earliest_date(timestamp)
+      latest_date(timestamp)
 
       # Track how many times each year occurs
       year_arr[year] += 1
@@ -43,23 +41,24 @@ class Challenge
 
     # Find the year with the most entries in the year_arr hash
     common_year = year_arr.max{|a,b| a[1] <=> b[1]}[0]
+
     @peak_year = common_year.to_i
+    @earliest_time = Time.at(@early_year).utc
+    @latest_time = Time.at(@late_year).utc
     
   end
 
-  # Find the earliest year
-  def earliest (timestamp)
+  # Find the earliest year by comparing the current timestamp to the previous earliest timestamp
+  def earliest_date (timestamp)
     if @early_year == '' || timestamp < @early_year
       @early_year = timestamp
-      @earliest_time = Time.at(timestamp).utc
     end
   end
 
-  # Find the latest year
-  def latest (timestamp)
+  # Find the latest year by comparing the current timestamp to the previous latest timestamp
+  def latest_date (timestamp)
     if @late_year == '' || timestamp > @late_year
       @late_year = timestamp
-      @latest_time = Time.at(timestamp).utc
     end
   end
 

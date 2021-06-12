@@ -60,5 +60,6 @@ class Challenge
     # Find the year with the most entries
     largest_year = track_year_arr.max{|a,b| a[1] <=> b[1]}[0]
     @peak_year = largest_year.to_i
+    
   end
 end

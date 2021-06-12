@@ -7,9 +7,8 @@ class Challenge
 
   def initialize(file_path)
     @file_path = File.expand_path(file_path)
-    @early_year = ''
     @late_year = ''
-
+    @early_year = ''
     parse()
   end
 
@@ -27,22 +26,24 @@ class Challenge
     File.open(@file_path).each do |date|
       
       # Convert the necessary parts of the datetime strings to timestamp and year
-      timestamp = Time.parse(date).to_i
-      year = Time.parse(date).strftime("%Y");
+      curr_date = Time.parse(date)
+      timestamp = curr_date.to_i
+      years = curr_date.year;
 
       # Run the earliest_date and latest_date mehtods, to track the earliest and latest dates
       earliest_date(timestamp)
       latest_date(timestamp)
 
       # Track how many times each year occurs
-      year_arr[year] += 1
+      year_arr[years] += 1
 
     end
 
     # Find the year with the most entries in the year_arr hash
-    common_year = year_arr.max{|a,b| a[1] <=> b[1]}[0]
+    common_year = year_arr.max{|a,b| a[1] <=> b[1]}
 
-    @peak_year = common_year.to_i
+    # Converting and setting the peak_year, earliest_time, latest_tiem variables
+    @peak_year = common_year[0].to_i
     @earliest_time = Time.at(@early_year).utc
     @latest_time = Time.at(@late_year).utc
     

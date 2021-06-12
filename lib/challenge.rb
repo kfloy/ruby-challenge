@@ -42,8 +42,8 @@ class Challenge
     end
 
     # Find the year with the most entries in the year_arr hash
-    largest_year = year_arr.max{|a,b| a[1] <=> b[1]}[0]
-    @peak_year = largest_year.to_i
+    common_year = year_arr.max{|a,b| a[1] <=> b[1]}[0]
+    @peak_year = common_year.to_i
     
   end
 

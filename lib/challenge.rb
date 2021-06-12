@@ -48,8 +48,8 @@ class Challenge
     latest_combined = Time.at(latest_utc + latest_tzone).strftime("%Y-%m-%dT%H:%M:%S")
 
     # Combining the datetime string with the correct timezone offset
-    @earliest_time = earliest_combined + "" + earliest_date[:timezone]
-    @latest_time = latest_combined + "" + latest_date[:timezone]
+    @earliest_time = earliest_combined + " " + earliest_date[:timezone]
+    @latest_time = latest_combined + " " + latest_date[:timezone]
 
     # Run through year_arr array and add up how many times each year exists
     track_year_arr = Hash.new(0)
@@ -58,7 +58,7 @@ class Challenge
     }
 
     # Find the year with the most entries
-    @peak_year = track_year_arr.max{|a,b| a[1] <=> b[1]}[0]
-
+    largest_year = track_year_arr.max{|a,b| a[1] <=> b[1]}[0]
+    @peak_year = largest_year.to_i
   end
 end

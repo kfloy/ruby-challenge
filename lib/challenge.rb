@@ -9,6 +9,7 @@ class Challenge
     @file_path = File.expand_path(file_path)
     @late_year = ''
     @early_year = ''
+    @year_arr = Hash.new(0)
     parse()
   end
 
@@ -19,30 +20,25 @@ class Challenge
     # latest_time: the latest time contained within the data set
     # peak_year: the year with the most number of timestamps contained within the data set
 
-    # Initialize local variables
-    year_arr = Hash.new(0)
-
     # Opening and running through each line of the file of dates
     File.open(@file_path).each do |date|
       
       # Convert the necessary parts of the datetime strings to timestamp and year
       curr_date = Time.parse(date)
       timestamp = curr_date.to_i
-      years = curr_date.year;
+      year = curr_date.year;
 
-      # Run the earliest_date and latest_date mehtods, to track the earliest and latest dates
+      # Track the earliest date, latest date, and peak year
       earliest_date(timestamp)
       latest_date(timestamp)
-
-      # Track how many times each year occurs
-      year_arr[years] += 1
+      track_year(year)
 
     end
 
     # Find the year with the most entries in the year_arr hash
-    common_year = year_arr.max{|a,b| a[1] <=> b[1]}
+    common_year = @year_arr.max{|a,b| a[1] <=> b[1]}
 
-    # Converting and setting the peak_year, earliest_time, latest_tiem variables
+    # Converting and setting the peak_year, earliest_time, latest_time variables
     @peak_year = common_year[0].to_i
     @earliest_time = Time.at(@early_year).utc
     @latest_time = Time.at(@late_year).utc
@@ -61,6 +57,11 @@ class Challenge
     if @late_year == '' || timestamp > @late_year
       @late_year = timestamp
     end
+  end
+
+  # Track how many times each year occurs
+  def track_year (year)
+    @year_arr[year] += 1
   end
 
 end

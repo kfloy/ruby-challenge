@@ -35,10 +35,10 @@ class Challenge
 
     end
 
-    # Find the year with the most entries in the year_arr hash
+    # Find the year with the most entries in the year_arr hash created in track_year()
     common_year = @year_arr.max{|a,b| a[1] <=> b[1]}
 
-    # Assign the dates to their applicable variables
+    # Assign the dates created in methods to their applicable variables
     @peak_year = common_year[0].to_i
     @earliest_time = Time.at(@earlier_date)
     @latest_time = Time.at(@later_date)

@@ -20,7 +20,7 @@ class Challenge
     # latest_time: the latest time contained within the data set
     # peak_year: the year with the most number of timestamps contained within the data set
 
-    #declaring local variables
+    # declaring local variables
     early = ''
     late = ''
 

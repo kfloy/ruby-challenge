@@ -20,6 +20,8 @@ class Challenge
     # latest_time: the latest time contained within the data set
     # peak_year: the year with the most number of timestamps contained within the data set
 
+    early = ''
+    late = ''
     # Opening and running through each line of the file of dates
     File.open(@file_path).each do |date|
       
@@ -29,8 +31,8 @@ class Challenge
       year = curr_date.year
 
       # Run methods to track the earliest date, latest date, and peak year
-      earliest_date(timestamp)
-      latest_date(timestamp)
+      early = earliest_date(timestamp)
+      late = latest_date(timestamp)
       track_year(year)
 
     end
@@ -40,8 +42,8 @@ class Challenge
 
     # Assign the dates created in methods to their applicable variables
     @peak_year = common_year[0].to_i
-    @earliest_time = Time.at(@earlier_date)
-    @latest_time = Time.at(@later_date)
+    @earliest_time = Time.at(early)
+    @latest_time = Time.at(late)
     
   end
 
@@ -50,6 +52,8 @@ class Challenge
     if @earlier_date == '' || timestamp < @earlier_date
       @earlier_date = timestamp
     end
+
+    return @earlier_date
   end
 
   # Find the latest year by comparing the current timestamp to the previous latest timestamp
@@ -57,6 +61,8 @@ class Challenge
     if @later_date == '' || timestamp > @later_date
       @later_date = timestamp
     end
+
+    return @later_date
   end
 
   # Track how many times each year occurs

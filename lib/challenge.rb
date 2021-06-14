@@ -20,8 +20,10 @@ class Challenge
     # latest_time: the latest time contained within the data set
     # peak_year: the year with the most number of timestamps contained within the data set
 
+    #declaring local variables
     early = ''
     late = ''
+
     # Opening and running through each line of the file of dates
     File.open(@file_path).each do |date|
       
